@@ -1,3 +1,5 @@
+//this is just a drawing component demo
+
 package components;
 
 import javax.swing.*;
