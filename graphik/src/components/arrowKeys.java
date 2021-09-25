@@ -11,7 +11,7 @@ public class arrowKeys extends JPanel implements ActionListener, KeyListener{
 
     private static final long serialVersionUID = 5194319078091921553L; //no idea what this does
     Timer t = new Timer(5, this); // The timer controls the redrawing in some way.
-    double x = 100, y = 100, dx = 0, dy = -5;  //Describes the ball. Actually, this is the particle the ball is built around.
+    double x = 100, y = 100, dx = 5, dy = -5;  //Describes the ball. Actually, this is the particle the ball is built around.
 
     //constructor, initializes keylistener things
     public arrowKeys() {
@@ -30,16 +30,22 @@ public class arrowKeys extends JPanel implements ActionListener, KeyListener{
 
     // describes particle behavior at every redraw
     public void actionPerformed(ActionEvent e) {
-        if(x > getWidth() - 60 || x < 20){ // when ball x hits an edge, reverse x velocity and reduce by 5%
+        if(x > getWidth() - 60 && dx > 0){ // when ball x hits an edge, reverse x velocity and reduce by 5%
             dx = -(0.95)*dx;
         }
-        if(y > getHeight() - 60 || y < 20){ // when ball y hits an edge, reverse x velocity and reduce by 5%
+        if(x < 20 && dx < 0){
+            dx = -(0.95)*dx;
+        }
+        if(y > getHeight() - 60 && dy > 0){ // when ball y hits an edge, reverse x velocity and reduce by 5%
+            dy = -(0.95)*dy;
+        }
+        if(y < 20 && dy < 0){
             dy = -(0.95)*dy;
         }
         
         x += dx; //apply x velocity to x position
         y += dy; //apply y velocity to y position
-        dy += 0.02; //increases y velocity down (gravity)
+        dy += 0.1; //increases y velocity down (gravity)
 
         repaint();
     }
